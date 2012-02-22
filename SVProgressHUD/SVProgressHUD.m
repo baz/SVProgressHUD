@@ -162,6 +162,7 @@ static SVProgressHUD *sharedView = nil;
             break;
         }
             
+        case SVProgressHUDMaskTypeGradientEnabled:
         case SVProgressHUDMaskTypeGradient: {
             
             size_t locationsCount = 2;
@@ -369,7 +370,9 @@ static SVProgressHUD *sharedView = nil;
 	[self setStatus:string];
 	[self.spinnerView startAnimating];
     
-    if(self.maskType != SVProgressHUDMaskTypeNone) {
+	if (self.maskType == SVProgressHUDMaskTypeGradientEnabled) {
+        self.overlayWindow.userInteractionEnabled = NO;
+	} else if (self.maskType != SVProgressHUDMaskTypeNone) {
         self.overlayWindow.userInteractionEnabled = YES;
     } else {
         self.overlayWindow.userInteractionEnabled = NO;
